@@ -144,7 +144,7 @@ main {
 }
 
 .container {
-  max-width: 1440px;
+  max-width: 1024px;
   margin: 0 auto;
   padding: 0 40px;
 }
@@ -271,11 +271,74 @@ main {
   z-index: 100;
 }
 
+.memory-game-container {
+  display: flex;
+}
+
+.memory-result-wrap {
+  order: 1;
+  width: 30%;
+  margin: 0 50px;
+}
+
+.memory-play-again {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 30px;
+  border-radius: 5px;
+  font-size: 1.5em;
+  color: var(--main-white-color);
+  border: 1px solid var(--main-white-color);
+  background-color: var(--main-color);
+  transform: scale(1);
+  transform-style: preserve-3d;
+  transition: all 0.5s ease-in-out;
+}
+
+.memory-play-again:hover {
+  color: var(--title-color);
+}
+
+.memory-play-again:active {
+  transform: scale(0.97);
+  transition: transform .5s;
+}
+
+.memory-result-score {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--main-white-color);
+  border: 1px solid var(--main-white-color);
+  background-color: var(--main-color);
+  border-radius: 5px;
+  padding: 0 20px;
+}
+
+.result-score-wrap {
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.result-score-wrap:not(:last-child) {
+  border-bottom: 3px dashed var(--main-white-color);
+}
+
+.result-title {}
+
+.result-time {}
+
+.result-penalty {}
+
 .memory-card-wrap {
   position: relative;
   display: grid;
-  width: 50%;
-  margin: 0 auto;
+  width: 60%;
+  margin-right: 50px;
   justify-content: space-evenly;
   align-items: center;
   grid-template-columns: repeat(5, 1fr);
@@ -293,7 +356,6 @@ main {
   border-radius: 5px;
   background-color: var(--main-color);
   border: 1px solid var(--main-white-color);
-  transform-style: preserve-3d;
   transform: scale(1);
   transform-style: preserve-3d;
   transition: transform .5s;
