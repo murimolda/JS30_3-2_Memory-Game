@@ -43,13 +43,20 @@ document.addEventListener("DOMContentLoaded", function () {
     let penaltyCount = 0; /*счет несовпавших пар, 1 очко за каждую*/
     let totalScore = 0; /*общий счет за игру, из расчета scoreCount - penaltyCount,
     если счет пенальти будет больше счета за пары - общий счет равняется 0*/
-    let scoreBlock = document.querySelector('.result-score');
-    let penaltyBlock = document.querySelector('.result-penalty');
-    let totalScoreBlock = document.querySelector('.result-total');
+    const scoreBlock = document.querySelector('.result-score');
+    const penaltyBlock = document.querySelector('.result-penalty');
+    const totalScoreBlock = document.querySelector('.result-total');
+    const timeBlock = document.querySelector('.result-time');
+    let timeInterval = 0; /*счетчик секунд*/
+    let timerId; /*переменная, содержащая setInterval, 
+    для остановки времени на финале игры и вывода общего времение игры*/
     let seconds = 0;
     let minutes = 0;
-    let cardPairCount = 0; /*количество совпавший пар. Когда достигает 10, стартует финальная функция*/
+    let minutesValue;
+    let secondsValue;
+    let cardPairCount = 0; /*количество совпавший пар. Когда достигает 10, срабатывает финальная функция*/
     let gameTurnsCount = 0;
+    const playAgainButton = document.querySelector('.memory-play-again');
 
 
     /*раунд игры*/
@@ -62,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         /*запуск счетчика времени с кликом по первой карте в игре*/
         if (!hasReverse && scoreCount === 0 && penaltyCount === 0) {
-            console.log('start');
+            timeCount();
         }
         this.classList.add('reverse-card'); /*добавляем класс карте, на которой произошел клик*/
         if (!hasReverse) {
@@ -88,10 +95,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /*Счетчик времени*/
     const timeCount = () => {
-        let time = `${Math.trunc(minutes)}:${seconds}`;
-        console.log(time);
+        timerId = setInterval(() => {
+            timeInterval++;
+            seconds = timeInterval;
+            if (timeInterval > 59) {
+                seconds = 0;
+                timeInterval = 0;
+                minutes++;
+            }
+            minutesValue = minutes;
+            secondsValue = seconds;
+            if (seconds < 10) {
+                secondsValue = `0${seconds}`;
+            }
+            if (minutes < 10) {
+                minutesValue = `0${minutes}`;
+            }
+            timeBlock.innerHTML = `${minutesValue}:${secondsValue}`;
+        }, 1000)
     }
-    timeCount();
 
     /*Если пара совпала, оставляем эти карты открытыми, заносим в счет очков 30 баллов, 
     снимаем с карт событие клик, раунд закончен. Если пара не совпала, закрываем эти карты, 
@@ -111,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    /*Для совпавшей пары карт снимаем сних событие клик, оставляем их открытими*/
+    /*Для совпавшей пары карт снимаем событие клик, оставляем их открытими*/
     const turnCards = () => {
         firstCard.removeEventListener('click', reverseCards);
         secondCard.removeEventListener('click', reverseCards);
@@ -152,12 +174,35 @@ document.addEventListener("DOMContentLoaded", function () {
         totalScoreBlock.innerHTML = `${totalScore}`;
         /*находим общее количество ходов за игру*/
         gameTurnsCount = penaltyCount + (scoreCount / 30);
-        console.log(gameTurnsCount);
+        setTimeout(() => {
+            clearInterval(timerId);
+        }, 0);
     }
 
     /*запуск раунда по клику на карту*/
     memoryCards.forEach(card => card.addEventListener('click', reverseCards));
 
+    const playAgain = () => {
+        scoreCount = 0;
+        scoreBlock.innerHTML = `${scoreCount}`;
+        penaltyCount = 0;
+        penaltyBlock.innerHTML = `${penaltyCount}`;
+        setTimeout(() => {
+            clearInterval(timerId);
+        }, 0);
+        timeInterval = 0;
+        seconds = 0;
+        minutes = 0;
+        timeBlock.innerHTML = `${minutesValue}:${minutesValue}`;
+        memoryCards.forEach(card => {
+            if (card.classList.contains("reverse-card")) {
+                card.classList.remove("reverse-card");
+            }
+            card.addEventListener('click', reverseCards);
+        });
+    }
+
+    playAgainButton.addEventListener('click', playAgain);
 
 
 
