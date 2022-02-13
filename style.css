@@ -204,6 +204,65 @@ a.white-theme:hover {
   background-size: cover;
 }
 
+/*Total game block*/
+.total-game-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 2, 0, 0.7);
+  z-index: 1000;
+}
+
+.total-game-container.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.total-game-container.white-theme {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.total-wrap {
+  text-align: center;
+  width: 350px;
+  border-radius: 5px;
+  color: var(--main-white-color);
+  border: 1px solid var(--main-white-color);
+  background-color: var(--main-color);
+  transform-style: preserve-3d;
+  transition: all 0.5s ease-in-out;
+  padding: 0 20px;
+
+}
+
+.total-game-title {
+  margin: 20px 0;
+}
+
+h2.total-game-title {
+  font-size: 2em;
+  color: var(--title-color);
+}
+
+.total-game-close {
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: none;
+  margin: 20px 0;
+}
+
+.total-game-icon {
+  width: 100%;
+  height: 100%;
+  fill: var(--main-white-color);
+}
+
+
 /*HEADER*/
 .header {
   position: relative;
@@ -266,6 +325,32 @@ a.white-theme:hover {
   color: var(--title-color);
 }
 
+.result-table-buttom {
+  width: 300px;
+  height: 40px;
+  margin-left: auto;
+  margin-right: 32px;
+  border-radius: 5px;
+  font-size: 1.5em;
+  color: var(--main-white-color);
+  border: 1px solid var(--main-white-color);
+  background-color: var(--main-color);
+  transform: scale(1);
+  transform-style: preserve-3d;
+  transition: all 0.5s ease-in-out;
+}
+
+.result-table-buttom:hover {
+  color: var(--title-color);
+}
+
+.result-table-buttom:active {
+  transform: scale(0.97);
+  transition: transform .5s;
+}
+
+
+
 /*Main*/
 main {
   z-index: 100;
@@ -282,7 +367,7 @@ main {
 }
 
 .memory-play-again {
-  width: 100%;
+  width: 300px;
   height: 40px;
   margin-bottom: 30px;
   border-radius: 5px;
@@ -305,7 +390,7 @@ main {
 }
 
 .memory-result-score {
-  width: 100%;
+  width: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -327,12 +412,6 @@ main {
 .result-score-wrap:not(:last-child) {
   border-bottom: 3px dashed var(--main-white-color);
 }
-
-.result-title {}
-
-.result-time {}
-
-.result-penalty {}
 
 .memory-card-wrap {
   position: relative;
@@ -384,12 +463,6 @@ main {
 .memory-card-front-face {
   transform: rotateY(180deg);
 }
-
-
-
-
-
-
 
 /*Footer*/
 .footer {

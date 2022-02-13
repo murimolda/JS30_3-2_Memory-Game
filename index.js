@@ -35,6 +35,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /*Фунции игры*/
     const memoryCards = document.querySelectorAll('.memory-card');
+    const scoreBlock = document.querySelector('.result-score');
+    const penaltyBlock = document.querySelector('.result-penalty');
+    const totalScoreBlock = document.querySelector('.result-total');
+    const timeBlock = document.querySelector('.result-time');
+    const playAgainButton = document.querySelector('.memory-play-again');
+    const totalGameBlock = document.querySelector('.total-game-container');
+    const totalGameCloseButton = document.querySelector('.total-game-close');
+    const totalGameTime = document.querySelector('.total-game-time');
+    const totalGameScore = document.querySelector('.total-game-score');
+    const totalGameMoves = document.querySelector('.total-game-moves');
+    const totalGameOverallResult = document.querySelector('.total-game-result');
+
     let hasReverse = false; /*перевернута ли карта*/
     let firstCard; /*первая выбранная карта*/
     let secondCard; /*вторая выбранная карта*/
@@ -43,21 +55,19 @@ document.addEventListener("DOMContentLoaded", function () {
     let penaltyCount = 0; /*счет несовпавших пар, 1 очко за каждую*/
     let totalScore = 0; /*общий счет за игру, из расчета scoreCount - penaltyCount,
     если счет пенальти будет больше счета за пары - общий счет равняется 0*/
-    const scoreBlock = document.querySelector('.result-score');
-    const penaltyBlock = document.querySelector('.result-penalty');
-    const totalScoreBlock = document.querySelector('.result-total');
-    const timeBlock = document.querySelector('.result-time');
     let timeInterval = 0; /*счетчик секунд*/
     let timerId; /*переменная, содержащая setInterval, 
     для остановки времени на финале игры и вывода общего времение игры*/
     let seconds = 0;
     let minutes = 0;
+    let time;
     let minutesValue;
     let secondsValue;
     let cardPairCount = 0; /*количество совпавший пар. Когда достигает 10, срабатывает финальная функция*/
     let gameTurnsCount = 0;
-    const playAgainButton = document.querySelector('.memory-play-again');
-
+    let totalTime = '';
+    let localStorageArray = [{ time: '00:20', total: '293' }, { time: '00:10', total: '295' }, { time: '00:23', total: '290' }];
+    console.log(localStorageArray[0]['total']);
 
     /*раунд игры*/
     function reverseCards() {
@@ -111,7 +121,8 @@ document.addEventListener("DOMContentLoaded", function () {
             if (minutes < 10) {
                 minutesValue = `0${minutes}`;
             }
-            timeBlock.innerHTML = `${minutesValue}:${secondsValue}`;
+            time = `${minutesValue}:${secondsValue}`
+            timeBlock.innerHTML = time;
         }, 1000)
     }
 
@@ -171,22 +182,45 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const finalGame = () => {
         totalScore = totalScore + (scoreCount - penaltyCount);
+        if (scoreCount < penaltyCount) {
+            totalScore = 0;
+        }
         totalScoreBlock.innerHTML = `${totalScore}`;
         /*находим общее количество ходов за игру*/
         gameTurnsCount = penaltyCount + (scoreCount / 30);
+        totalTime = `${minutesValue}:${minutesValue}`;
         setTimeout(() => {
             clearInterval(timerId);
         }, 0);
+        showTotalResult();
+        localStorageArray.push({ time: `${time}`, total: `${totalScore}` })
+        localStorageArray = localStorageArray;
+        setLocalStorage();
     }
 
-    /*запуск раунда по клику на карту*/
-    memoryCards.forEach(card => card.addEventListener('click', reverseCards));
+    /*Появление блока с результатами в финале игры*/
+    const showTotalResult = () => {
+        totalGameTime.innerHTML = time;
+        totalGameScore.innerHTML = `${scoreCount}`;
+        totalGameMoves.innerHTML = `${gameTurnsCount}`;
+        totalGameOverallResult.innerHTML = `${totalScore}`;
+        totalGameBlock.classList.add('active');
+    }
 
+    /*Закрытие блока с финальными результатами при нажатии на крест*/
+    totalGameCloseButton.addEventListener('click', () => {
+        totalGameBlock.classList.remove('active')
+    });
+
+    /*Перезагрузка игры по клику на кнопку Играть ещё*/
     const playAgain = () => {
+        cardPairCount = 0;
         scoreCount = 0;
         scoreBlock.innerHTML = `${scoreCount}`;
         penaltyCount = 0;
         penaltyBlock.innerHTML = `${penaltyCount}`;
+        totalScore = 0;
+        totalScoreBlock.innerHTML = `${totalScore}`;
         setTimeout(() => {
             clearInterval(timerId);
         }, 0);
@@ -200,9 +234,29 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             card.addEventListener('click', reverseCards);
         });
+        // shuffle();
+    }
+    playAgainButton.addEventListener('click', playAgain);
+
+    /*запуск раунда по клику на карту*/
+    memoryCards.forEach(card => card.addEventListener('click', reverseCards));
+
+    /*Сохранение результатов в LocalStorage*/
+    const setLocalStorage = () => {
+        localStorage.setItem('localStorageArray', JSON.stringify(localStorageArray));
     }
 
-    playAgainButton.addEventListener('click', playAgain);
+    const getLocalStorage = () => {
+        if (localStorage.getItem('localStorageArray')) {
+            const localStorageArray = JSON.parse(localStorage.getItem("localStorageArray"));
+        }
+    }
+    window.addEventListener('load', getLocalStorage);
+
+
+
+
+
 
 
 
