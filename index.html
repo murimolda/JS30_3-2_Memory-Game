@@ -27,10 +27,6 @@
           <h3 class="total-game-title">Moves count</h3>
           <div class="total-game-moves"></div>
         </div>
-        <div class="total-game-wrap">
-          <h3 class="total-game-title">Total score</h3>
-          <div class="total-game-result"></div>
-        </div>
         <button class="total-game-close">
           <svg class="total-game-icon icon active">
             <use xlink:href="assets/svg/sprite.svg#close"></use>
@@ -40,8 +36,8 @@
     </div>
   </div>
   <div class="result-table-container">
-    <h2 class="result-table-title">Result table</h2>
     <div class="result-table-wrap">
+      <h2>Result table</h2>
       <div class="result-table-title">
         <span class="empty-block"></span>
         <h3>Score</h3>
@@ -49,34 +45,59 @@
       </div>
       <div class="result-table-line">
         <h4>Game#1</h4>
+        <span class="table-score"></span>
+        <span class="table-time"></span>
       </div>
       <div class="result-table-line">
         <h4>Game#2</h4>
+        <span class="table-score"></span>
+        <span class="table-time"></span>
       </div>
       <div class="result-table-line">
         <h4>Game#3</h4>
+        <span class="table-score"></span>
+        <span class="table-time"></span>
       </div>
       <div class="result-table-line">
         <h4>Game#4</h4>
+        <span class="table-score"></span>
+        <span class="table-time"></span>
       </div>
       <div class="result-table-line">
         <h4>Game#5</h4>
+        <span class="table-score"></span>
+        <span class="table-time"></span>
       </div>
       <div class="result-table-line">
         <h4>Game#6</h4>
+        <span class="table-score"></span>
+        <span class="table-time"></span>
       </div>
       <div class="result-table-line">
         <h4>Game#7</h4>
+        <span class="table-score"></span>
+        <span class="table-time"></span>
       </div>
       <div class="result-table-line">
         <h4>Game#8</h4>
+        <span class="table-score"></span>
+        <span class="table-time"></span>
       </div>
       <div class="result-table-line">
         <h4>Game#9</h4>
+        <span class="table-score"></span>
+        <span class="table-time"></span>
       </div>
       <div class="result-table-line">
         <h4>Game#10</h4>
+        <span class="table-score"></span>
+        <span class="table-time"></span>
       </div>
+      <button class="result-table-close">
+        <svg class="result-table-icon icon active">
+          <use xlink:href="assets/svg/sprite.svg#close"></use>
+        </svg>
+      </button>
     </div>
   </div>
   <header class="header">
@@ -89,18 +110,20 @@
           <use xlink:href="assets/svg/sprite.svg#mute"></use>
         </svg>
       </button>
-      <h1 class="header-title">Angry Birds Memory Game</h1>
-      <button class="result-table-buttom">
+      <h1 class="header-title">
+        Angry Birds Memory Game
+      </h1>
+      <button class="result-table-button header-button">
         Result table
+      </button>
+      <button class="play-again-button header-button">
+        Play again!
       </button>
     </div>
   </header>
   <main>
     <div class="memory-game-container container">
       <div class="memory-result-wrap">
-        <button class="memory-play-again">
-          Play again!
-        </button>
         <div class="memory-result-score">
           <div class="result-score-wrap">
             <h3 class="result-title">Time</h3>
@@ -115,7 +138,7 @@
             <div class="result-penalty">0</div>
           </div>
           <div class="result-score-wrap">
-            <h3 class="result-title">Total score</h3>
+            <h3 class="result-title">Total</h3>
             <div class="result-total">0</div>
           </div>
         </div>

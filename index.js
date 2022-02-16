@@ -39,13 +39,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const penaltyBlock = document.querySelector('.result-penalty');
     const totalScoreBlock = document.querySelector('.result-total');
     const timeBlock = document.querySelector('.result-time');
-    const playAgainButton = document.querySelector('.memory-play-again');
+    const playAgainButton = document.querySelector('.play-again-button');
     const totalGameBlock = document.querySelector('.total-game-container');
     const totalGameCloseButton = document.querySelector('.total-game-close');
     const totalGameTime = document.querySelector('.total-game-time');
     const totalGameScore = document.querySelector('.total-game-score');
     const totalGameMoves = document.querySelector('.total-game-moves');
     const totalGameOverallResult = document.querySelector('.total-game-result');
+    const resultTableButton = document.querySelector('.result-table-button');
+    const resultTableContainer = document.querySelector('.result-table-container');
+    const resultTableCloseButton = document.querySelector('.result-table-close');
+    const resultTableScore = document.querySelectorAll('.table-score');
+    const resultTableTime = document.querySelectorAll('.table-time');
 
     let hasReverse = false; /*перевернута ли карта*/
     let firstCard; /*первая выбранная карта*/
@@ -67,7 +72,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let gameTurnsCount = 0;
     let totalTime = '';
     let localStorageArray = [{ time: '00:20', total: '293' }, { time: '00:10', total: '295' }, { time: '00:23', total: '290' }];
-    console.log(localStorageArray[0]['total']);
 
     /*раунд игры*/
     function reverseCards() {
@@ -201,10 +205,11 @@ document.addEventListener("DOMContentLoaded", function () {
     /*Появление блока с результатами в финале игры*/
     const showTotalResult = () => {
         totalGameTime.innerHTML = time;
-        totalGameScore.innerHTML = `${scoreCount}`;
+        totalGameScore.innerHTML = `${totalScore}`;
         totalGameMoves.innerHTML = `${gameTurnsCount}`;
-        totalGameOverallResult.innerHTML = `${totalScore}`;
-        totalGameBlock.classList.add('active');
+        setTimeout(() => {
+            totalGameBlock.classList.add('active');
+        }, 1500);
     }
 
     /*Закрытие блока с финальными результатами при нажатии на крест*/
@@ -245,13 +250,33 @@ document.addEventListener("DOMContentLoaded", function () {
     const setLocalStorage = () => {
         localStorage.setItem('localStorageArray', JSON.stringify(localStorageArray));
     }
+    window.addEventListener('beforeunload', setLocalStorage);
 
     const getLocalStorage = () => {
         if (localStorage.getItem('localStorageArray')) {
             const localStorageArray = JSON.parse(localStorage.getItem("localStorageArray"));
         }
     }
-    window.addEventListener('load', getLocalStorage);
+
+    /*Записываем информацию из массива LocalstorageArray в таблицу результатов*/
+    const fillResultTable = () => {
+        getLocalStorage;
+        let i = 0;
+        while (i < localStorageArray.length) {
+            resultTableScore[i].innerHTML = `${localStorageArray[i]['total']}`;
+            resultTableTime[i].innerHTML = `${localStorageArray[i]['time']}`;
+            i++;
+        }
+    }
+    resultTableButton.addEventListener('click', () => {
+        fillResultTable();
+        resultTableContainer.classList.add("active");
+    })
+
+    resultTableCloseButton.addEventListener('click', () => {
+        resultTableContainer.classList.remove("active");
+    })
+
 
 
 
