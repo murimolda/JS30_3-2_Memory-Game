@@ -458,58 +458,21 @@ h2.total-game-title {
   display: flex;
 }
 
-.memory-result-wrap {
-  order: 1;
-  width: 300px;
-  margin-left: auto;
-}
-
 @media screen and (max-width: 1024px) {
-  .memory-result-wrap {
-    width: 100px;
-    margin-left: 0;
+  .memory-game-container {
+    flex-direction: column;
   }
-}
-
-.memory-result-score {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: var(--main-white-color);
-  border: 1px solid var(--main-white-color);
-  background-color: var(--main-color);
-  border-radius: 5px;
-  padding: 0 20px;
-}
-
-.result-score-wrap {
-  padding: 20px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-@media screen and (max-width: 1024px) {
-  .result-score-wrap {
-    padding: 10px;
-  }
-}
-
-.result-score-wrap:not(:last-child) {
-  border-bottom: 3px dashed var(--main-white-color);
 }
 
 .memory-card-wrap {
   position: relative;
   display: grid;
-  width: 65%;
-  margin-right: 50px;
+  width: 85%;
+  margin-right: 20px;
   grid-auto-flow: row;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, 18%);
   gap: 10px;
   z-index: 100;
   perspective: 1000px;
@@ -517,8 +480,16 @@ h2.total-game-title {
 
 @media screen and (max-width: 1024px) {
   .memory-card-wrap {
-    width: 75%;
-    margin-right: 30px;
+    justify-content: center;
+    width: 100%;
+    grid-template-columns: repeat(5, 20%);
+    margin-bottom: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .memory-card-wrap {
+    gap: 5px;
   }
 }
 
@@ -559,6 +530,69 @@ h2.total-game-title {
 .memory-card-front-face {
   transform: rotateY(180deg);
 }
+
+.memory-result-wrap {
+  width: 300px;
+  margin-left: auto;
+}
+
+@media screen and (max-width: 1024px) {
+  .memory-result-wrap {
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .memory-result-wrap {
+    width: 100%;
+  }
+}
+
+.memory-result-score {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--main-white-color);
+  border: 1px solid var(--main-white-color);
+  background-color: var(--main-color);
+  border-radius: 5px;
+  padding: 0 20px;
+}
+
+@media screen and (max-width: 1024px) {
+  .memory-result-score {
+    width: 100%;
+    flex-direction: row;
+    padding: 10px;
+  }
+}
+
+.result-score-wrap {
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media screen and (max-width: 1024px) {
+  .result-score-wrap {
+    padding: 0 10px;
+  }
+}
+
+.result-score-wrap:not(:last-child) {
+  border-bottom: 3px dashed var(--main-white-color);
+}
+
+@media screen and (max-width: 1024px) {
+  .result-score-wrap:not(:last-child) {
+    border-bottom: none;
+    border-right: 3px dashed var(--main-white-color);
+  }
+}
+
 
 /*Footer*/
 .footer {
