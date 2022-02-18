@@ -197,8 +197,12 @@ document.addEventListener("DOMContentLoaded", function () {
             clearInterval(timerId);
         }, 0);
         showTotalResult();
-        localStorageArray.push({ time: `${time}`, total: `${totalScore}` })
-        localStorageArray = localStorageArray;
+        if (localStorageArray.length === 10 && localStorageArray.length !== 0) {
+            localStorageArray.shift();
+            localStorageArray.push({ time: `${time}`, total: `${totalScore}` })
+        } else {
+            localStorageArray.push({ time: `${time}`, total: `${totalScore}` })
+        }
         setLocalStorage();
     }
 
@@ -254,9 +258,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const getLocalStorage = () => {
         if (localStorage.getItem('localStorageArray')) {
-            const localStorageArray = JSON.parse(localStorage.getItem("localStorageArray"));
+            localStorageArray = JSON.parse(localStorage.getItem("localStorageArray"));
         }
     }
+    window.addEventListener('load', getLocalStorage);
 
     /*Записываем информацию из массива LocalstorageArray в таблицу результатов*/
     const fillResultTable = () => {
