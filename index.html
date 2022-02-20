@@ -102,14 +102,17 @@
   </div>
   <header class="header">
     <div class="header-container container">
-      <button class="header-volume-button" data-theme="white-theme">
-        <svg class="header-volume-icon icon active" data-theme="white-theme">
+      <button class="header-volume-button mute" data-theme="white-theme">
+        <svg class="header-volume-icon icon" data-theme="white-theme">
           <use xlink:href="assets/svg/sprite.svg#volume"></use>
         </svg>
         <svg class="header-mute-icon icon" data-theme="white-theme">
           <use xlink:href="assets/svg/sprite.svg#mute"></use>
         </svg>
       </button>
+      <audio class="header-audio" autoplay loop preload="auto">
+        <source src="assets/New_Pork_City.mp3" type="audio/mpeg">
+      </audio>
       <h1 class="header-title">
         Angry Birds Memory Game
       </h1>

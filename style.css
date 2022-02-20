@@ -126,6 +126,7 @@ body {
   z-index: 100;
 }
 
+
 body.white-theme {
   color: var(--matte-black-color);
 }
@@ -274,7 +275,7 @@ h2.total-game-title {
 .result-table-container.active {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .result-table-container.white-theme {
@@ -283,7 +284,7 @@ h2.total-game-title {
 
 .result-table-wrap {
   width: 300px;
-  max-height: 80vh;
+  max-height: 95vh;
   border-radius: 5px;
   color: var(--main-white-color);
   border: 1px solid var(--main-white-color);
@@ -291,6 +292,7 @@ h2.total-game-title {
   transform-style: preserve-3d;
   transition: all 0.5s ease-in-out;
   padding: 20px;
+  margin-top: 20px;
 }
 
 .result-table-wrap h2 {
@@ -390,20 +392,20 @@ h2.total-game-title {
   height: 100%;
 }
 
-.header-volume-icon {
+.header-volume-button>.header-mute-icon {
   display: none;
 }
 
-.header-mute-icon {
+.header-volume-button>.header-volume-icon.active {
+  display: block;
+}
+
+.header-volume-button.mute>.header-mute-icon {
+  display: block;
+}
+
+.header-volume-button.mute>.header-volume-icon {
   display: none;
-}
-
-.header-volume-icon.active {
-  display: block;
-}
-
-.header-mute-icon.active {
-  display: block;
 }
 
 .header-title {
@@ -428,6 +430,13 @@ h2.total-game-title {
   transform-style: preserve-3d;
   transition: all 0.5s ease-in-out;
 }
+
+@media screen and (max-width: 550px) {
+  .header-button {
+    font-size: 0.8em;
+  }
+}
+
 
 .header-button:hover {
   color: var(--title-color);
@@ -467,7 +476,7 @@ h2.total-game-title {
 .memory-card-wrap {
   position: relative;
   display: grid;
-  width: 85%;
+  width: 65%;
   margin-right: 20px;
   grid-auto-flow: row;
   justify-content: start;
@@ -487,9 +496,10 @@ h2.total-game-title {
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 450px) {
   .memory-card-wrap {
-    gap: 5px;
+    grid-template-columns: repeat(4, 24%);
+    gap: 1%;
   }
 }
 
@@ -539,6 +549,7 @@ h2.total-game-title {
 @media screen and (max-width: 1024px) {
   .memory-result-wrap {
     margin-left: 0;
+    margin-top: 20px;
   }
 }
 
@@ -568,6 +579,13 @@ h2.total-game-title {
   }
 }
 
+@media screen and (max-width: 500px) {
+  .memory-result-score {
+    padding: 10px 0;
+  }
+}
+
+
 .result-score-wrap {
   padding: 20px;
   width: 100%;
@@ -578,7 +596,24 @@ h2.total-game-title {
 
 @media screen and (max-width: 1024px) {
   .result-score-wrap {
+    width: 25%;
     padding: 0 10px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .result-score-wrap {
+    font-size: 0.7em;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .result-score-wrap:nth-child(3) {
+    width: 27%;
+  }
+
+  .result-score-wrap:nth-child(4) {
+    width: 23%;
   }
 }
 
@@ -628,7 +663,7 @@ h2.total-game-title {
 
 @media screen and (max-width: 850px) {
   .footer-item:not(:last-child) {
-    margin-bottom: 40px;
+    margin-bottom: 10px;
   }
 }
 

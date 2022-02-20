@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
             firstCard.classList.remove('reverse-card');
             secondCard.classList.remove('reverse-card');
             backCards();
-        }, 1500);
+        }, 1000);
     }
 
     /*Обнуляем значения с конце каждого раунда*/
@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function () {
             card.style.order = ramdomPos;
         });
     };
-    // shuffle();
+    shuffle();
 
     const finalGame = () => {
         totalScore = totalScore + (scoreCount - penaltyCount);
@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
         totalGameMoves.innerHTML = `${gameTurnsCount}`;
         setTimeout(() => {
             totalGameBlock.classList.add('active');
-        }, 1500);
+        }, 1000);
     }
 
     /*Закрытие блока с финальными результатами при нажатии на крест*/
@@ -236,6 +236,14 @@ document.addEventListener("DOMContentLoaded", function () {
         timeInterval = 0;
         seconds = 0;
         minutes = 0;
+        minutesValue = minutes;
+        secondsValue = seconds;
+        if (seconds < 10) {
+            secondsValue = `0${seconds}`;
+        }
+        if (minutes < 10) {
+            minutesValue = `0${minutes}`;
+        }
         timeBlock.innerHTML = `${minutesValue}:${minutesValue}`;
         memoryCards.forEach(card => {
             if (card.classList.contains("reverse-card")) {
@@ -243,7 +251,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             card.addEventListener('click', reverseCards);
         });
-        // shuffle();
+        shuffle();
     }
     playAgainButton.addEventListener('click', playAgain);
 
@@ -281,6 +289,23 @@ document.addEventListener("DOMContentLoaded", function () {
     resultTableCloseButton.addEventListener('click', () => {
         resultTableContainer.classList.remove("active");
     })
+
+    /*Звук в игре*/
+    const volumeButton = document.querySelector('.header-volume-button');
+    const gameSound = document.querySelector('.header-audio');
+    gameSound.volume = 0;
+
+    const gameMute = () => {
+        if (gameSound.volume === 0) {
+            gameSound.volume = 50 / 100;
+            volumeButton.classList.remove("mute");
+        } else {
+            gameSound.volume = 0;
+            volumeButton.classList.add("mute");
+        }
+    }
+    volumeButton.addEventListener('click', gameMute);
+
 
 
 
