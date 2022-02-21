@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let cardPairCount = 0; /*количество совпавший пар. Когда достигает 10, срабатывает финальная функция*/
     let gameTurnsCount = 0;
     let totalTime = '';
-    let localStorageArray = [{ time: '00:20', total: '293' }, { time: '00:10', total: '295' }, { time: '00:23', total: '290' }];
+    let localStorageArray = [];
 
     /*раунд игры*/
     function reverseCards() {
@@ -290,16 +290,28 @@ document.addEventListener("DOMContentLoaded", function () {
         resultTableContainer.classList.remove("active");
     })
 
+    document.addEventListener('keyup', (e) => {
+        if (e.key === 'Escape' && resultTableContainer.classList.contains("active")) {
+            resultTableContainer.classList.remove("active");
+        }
+    });
+
+
     /*Звук в игре*/
     const volumeButton = document.querySelector('.header-volume-button');
-    const gameSound = document.querySelector('.header-audio');
+    const gameSound = new Audio();
+    gameSound.src = 'assets/New_Pork_City.mp3';
+    gameSound.autoplay = true;
+    gameSound.loop = true;
     gameSound.volume = 0;
 
     const gameMute = () => {
         if (gameSound.volume === 0) {
+            gameSound.play();
             gameSound.volume = 50 / 100;
             volumeButton.classList.remove("mute");
         } else {
+            gameSound.pause();
             gameSound.volume = 0;
             volumeButton.classList.add("mute");
         }
@@ -307,8 +319,21 @@ document.addEventListener("DOMContentLoaded", function () {
     volumeButton.addEventListener('click', gameMute);
 
 
-
-
+    console.log(`
+    Самооценка: 70 баллов
+        Вёрстка +10: 
+            - реализован интерфейс игры +5
+            - в футере приложения есть ссылка на гитхаб автора приложения, год создания приложения, логотип курса со cсылкой на курс +5
+        Логика игры. Карточки, по которым кликнул игрок, переворачиваются согласно правилам игры +10
+        Игра завершается, когда открыты все карточки +10
+        По окончанию игры выводится её результат - количество ходов, которые понадобились для завершения игры +10
+        Результаты последних 10 игр сохраняются в local storage. Есть таблица рекордов, в которой сохраняются результаты предыдущих 10 игр +10
+        По клику на карточку – она переворачивается плавно, если пара не совпадает – обе карточки так же плавно переварачиваются рубашкой вверх +10
+        Очень высокое качество оформления приложения и/или дополнительный не предусмотренный в задании функционал, улучшающий качество приложения +10:
+            - Добавлена музыка, есть возможность выключить и влючить звук игры. 
+            - Добавлена кнопка "Играть ещё", которая перезагружает игру, сохраняя предыдущие результаты в таблицу рекордов
+            - Добавлен счет совпадений и штрафов
+    `);
 
 
 
